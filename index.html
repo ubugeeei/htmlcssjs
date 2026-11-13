@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rule 110 JavaScript engine</title>
+  <meta name="description" content="A small JavaScript engine written in HTML and CSS. Programs run as cellular automaton Rule 110.">
+  <link rel="stylesheet" href="engine.css">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="kicker">HTML and CSS</p>
+      <h1>A JavaScript engine on Rule 110</h1>
+      <p class="lead">
+        A program on this page is a single <code>print</code>.
+        The engine writes that program as ten cells.
+        Each following row is cellular automaton Rule 110.
+        After three rows, two of the cells are the number <code>print</code> shows.
+      </p>
+    </header>
+
+    <section>
+      <h2>The language</h2>
+      <p>Every program has this shape. <code>a</code> and <code>b</code> are the bits <code>0</code> and <code>1</code>.</p>
+      <pre><code>print(0)
+print(1)
+print(! a)
+print(a &amp;&amp; b)
+print(a || b)
+print(a + b)</code></pre>
+      <p>
+        Addition is one bit wide.
+        <code>1 + 1</code> carries, so it prints <code>2</code>.
+        <code>&&</code> and <code>||</code> are the usual JavaScript booleans, with <code>0</code> false and <code>1</code> true.
+      </p>
+    </section>
+
+    <section>
+      <h2>The rule</h2>
+      <p>
+        A cell and its two neighbors decide the cell below it.
+        The eight cases are Rule 110.
+        Read the bottom row as a binary number and you get 110.
+      </p>
+      <table>
+        <caption>Left, cell, right, and the cell in the next row</caption>
+        <thead>
+          <tr>
+            <th scope="col">Left</th>
+            <th scope="col">Cell</th>
+            <th scope="col">Right</th>
+            <th scope="col">Next</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+          <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+          <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+          <tr><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        </tbody>
+      </table>
+      <p>The same table is one formula. Each variable is <code>0</code> or <code>1</code>.</p>
+      <p class="formula">next = min(1, (1 − left) × (center + right) + left × |center − right|)</p>
+      <p>Two rows, worked by hand:</p>
+      <ul>
+        <li>Left 1, center 1, right 1. <code>min(1, (1 − 1) × (1 + 1) + 1 × |1 − 1|) = 0</code>.</li>
+        <li>Left 0, center 0, right 1. <code>min(1, (1 − 0) × (0 + 1) + 0 × |0 − 1|) = 1</code>.</li>
+      </ul>
+      <p>Cells past the ends of the row are empty, so the missing neighbor is <code>0</code>.</p>
+    </section>
+
+    <section>
+      <h2>How a program is written</h2>
+      <p>
+        Columns are numbered from 1 on the left.
+        The printed number is read on the third step:
+        column 2 is the twos place, column 4 is the ones place.
+      </p>
+      <p class="formula">printed = 2 × (column 2) + (column 4)</p>
+      <dl>
+        <dt><code>print(0)</code></dt>
+        <dd>Ten empty cells. <code>0000000000</code></dd>
+        <dt><code>print(1)</code></dt>
+        <dd>One living cell in column 6. <code>0000010000</code></dd>
+        <dt><code>print(! a)</code></dt>
+        <dd>
+          <code>a</code> is written in column 3. Column 6 is living.
+          <code>00a0010000</code>.
+          When <code>a</code> is <code>0</code>, this is the same row as <code>print(1)</code>.
+        </dd>
+        <dt><code>print(a &amp;&amp; b)</code></dt>
+        <dd>
+          <code>1 a 0 1 b 0 1 0 0 0</code>.
+          <code>a</code> is column 2. <code>b</code> is column 5.
+        </dd>
+        <dt><code>print(a || b)</code></dt>
+        <dd>
+          <code>a</code> is column 6. <code>b</code> is column 7.
+          Every other cell is empty. <code>00000ab000</code>.
+        </dd>
+        <dt><code>print(a + b)</code></dt>
+        <dd>
+          <code>1 a b 1 0 0 1 0 0 0</code>.
+          <code>a</code> is column 2. <code>b</code> is column 3.
+          On the third step, column 2 holds the carry and column 4 holds the sum bit.
+        </dd>
+      </dl>
+    </section>
+  </main>
+</body>
+</html>

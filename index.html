@@ -271,10 +271,202 @@ import { a } from "./m.js"; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 
             <legend>Iteration</legend>
             <input type="radio" name="program" id="es-for">
             <label for="es-for"><span class="feat">for...of</span><code>let s = 0; for (const n of [1]) s += n; print(s)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-chars">
+            <label for="es-chars"><span class="feat">string iterator</span><code>let s = 0; for (const c of "1") s = Number(c); print(s)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-gen">
             <label for="es-gen"><span class="feat">generator</span><code>function* g() { yield 1 } print(g().next().value)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-yield">
             <label for="es-yield"><span class="feat">yield*</span><code>function* a() { yield 1 } function* b() { yield* a() } print(b().next().value)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Promises</legend>
+            <input type="radio" name="program" id="es-promise">
+            <label for="es-promise"><span class="feat">Promise.resolve</span><code>Promise.resolve(1).then(print)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-all">
+            <label for="es-all"><span class="feat">Promise.all</span><code>Promise.all([1]).then(a =&gt; print(a[0]))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-race">
+            <label for="es-race"><span class="feat">Promise.race</span><code>Promise.race([1, 0]).then(print)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-reject">
+            <label for="es-reject"><span class="feat">Promise.reject</span><code>Promise.reject(0).catch(print)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Collections</legend>
+            <input type="radio" name="program" id="es-map">
+            <label for="es-map"><span class="feat">Map</span><code>print(new Map([["a", 1]]).get("a"))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-set">
+            <label for="es-set"><span class="feat">Set</span><code>print(new Set([0, 1]).size)</code><span class="bits">1 1 1 1 0 0 1 0 0 0</span></label>
+            <input type="radio" name="program" id="es-weakmap">
+            <label for="es-weakmap"><span class="feat">WeakMap</span><code>const k = {}; print(new WeakMap([[k, 0]]).get(k))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-weakset">
+            <label for="es-weakset"><span class="feat">WeakSet</span><code>const k = {}; print(new WeakSet([k]).has(k) ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-submap">
+            <label for="es-submap"><span class="feat">subclassable built-in</span><code>class M extends Map {} print(new M([["a", 1]]).get("a"))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Symbols</legend>
+            <input type="radio" name="program" id="es-symbol">
+            <label for="es-symbol"><span class="feat">Symbol</span><code>const s = Symbol(); print({ [s]: 1 }[s])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-iter">
+            <label for="es-iter"><span class="feat">Symbol.iterator</span><code>const a = { *[Symbol.iterator]() { yield 1 } }; print([...a][0])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-instance">
+            <label for="es-instance"><span class="feat">Symbol.hasInstance</span><code>class A { static [Symbol.hasInstance]() { return true } } print(0 instanceof A ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-totag">
+            <label for="es-totag"><span class="feat">Symbol.toStringTag</span><code>print({ [Symbol.toStringTag]: "A" }.toString().includes("A") ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-primitive">
+            <label for="es-primitive"><span class="feat">Symbol.toPrimitive</span><code>print(Number({ [Symbol.toPrimitive]() { return 1 } }))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-species">
+            <label for="es-species"><span class="feat">Symbol.species</span><code>class A extends Array { static get [Symbol.species]() { return Array } } print(A.of(1).map(n =&gt; n) instanceof A ? 0 : 1)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-unscopables">
+            <label for="es-unscopables"><span class="feat">Symbol.unscopables</span><code>let a = 0; with ({ a: 1, [Symbol.unscopables]: { a: true } }) print(a)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-concat">
+            <label for="es-concat"><span class="feat">Symbol.isConcatSpreadable</span><code>print([].concat({ [Symbol.isConcatSpreadable]: true, 0: 1, length: 1 })[0])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-match">
+            <label for="es-match"><span class="feat">Symbol.match</span><code>print("1".match({ [Symbol.match]() { return [1] } })[0])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-replace">
+            <label for="es-replace"><span class="feat">Symbol.replace</span><code>print(Number("0".replace({ [Symbol.replace]() { return "1" } })))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-search">
+            <label for="es-search"><span class="feat">Symbol.search</span><code>print("a".search({ [Symbol.search]() { return 0 } }))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-split">
+            <label for="es-split"><span class="feat">Symbol.split</span><code>print(Number("a".split({ [Symbol.split]() { return ["1"] } })[0]))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Proxy and Reflect</legend>
+            <input type="radio" name="program" id="es-proxy">
+            <label for="es-proxy"><span class="feat">Proxy</span><code>print(new Proxy({ a: 1 }, { get: (t, k) =&gt; t[k] }).a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-apply">
+            <label for="es-apply"><span class="feat">Reflect.apply</span><code>print(Reflect.apply(a =&gt; a, null, [1]))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-construct">
+            <label for="es-construct"><span class="feat">Reflect.construct</span><code>class A { constructor() { this.a = 1 } } print(Reflect.construct(A, []).a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-define">
+            <label for="es-define"><span class="feat">Reflect.defineProperty</span><code>const o = {}; Reflect.defineProperty(o, "a", { value: 1 }); print(o.a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-delete">
+            <label for="es-delete"><span class="feat">Reflect.deleteProperty</span><code>const o = { a: 1 }; Reflect.deleteProperty(o, "a"); print(o.a ? 1 : 0)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-get">
+            <label for="es-get"><span class="feat">Reflect.get</span><code>print(Reflect.get({ a: 1 }, "a"))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-desc">
+            <label for="es-desc"><span class="feat">Reflect.getOwnPropertyDescriptor</span><code>print(Reflect.getOwnPropertyDescriptor({ a: 1 }, "a").value)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-getproto">
+            <label for="es-getproto"><span class="feat">Reflect.getPrototypeOf</span><code>print(Reflect.getPrototypeOf(Object.create({ a: 1 })).a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-has">
+            <label for="es-has"><span class="feat">Reflect.has</span><code>print(Reflect.has({ a: 1 }, "a") ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-ext">
+            <label for="es-ext"><span class="feat">Reflect.isExtensible</span><code>print(Reflect.isExtensible({}) ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-own">
+            <label for="es-own"><span class="feat">Reflect.ownKeys</span><code>print(Reflect.ownKeys({ a: 1 }).length)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-prevent">
+            <label for="es-prevent"><span class="feat">Reflect.preventExtensions</span><code>const o = {}; Reflect.preventExtensions(o); print(Reflect.isExtensible(o) ? 1 : 0)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-rset">
+            <label for="es-rset"><span class="feat">Reflect.set</span><code>const o = {}; Reflect.set(o, "a", 1); print(o.a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-setproto">
+            <label for="es-setproto"><span class="feat">Reflect.setPrototypeOf</span><code>print(Reflect.setPrototypeOf({}, { a: 1 }).a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Arrays, strings, numbers, objects</legend>
+            <input type="radio" name="program" id="es-from">
+            <label for="es-from"><span class="feat">Array.from</span><code>print(Array.from([1])[0])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-of">
+            <label for="es-of"><span class="feat">Array.of</span><code>print(Array.of(0)[0])</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-find">
+            <label for="es-find"><span class="feat">find</span><code>print([0, 1].find(n =&gt; n))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-findi">
+            <label for="es-findi"><span class="feat">findIndex</span><code>print([0, 1].findIndex(n =&gt; n))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-fill">
+            <label for="es-fill"><span class="feat">fill</span><code>print([0].fill(1)[0])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-copy">
+            <label for="es-copy"><span class="feat">copyWithin</span><code>print([1, 0].copyWithin(0, 1)[0])</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-entries">
+            <label for="es-entries"><span class="feat">entries</span><code>print([...[1].entries()][0][1])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-keys">
+            <label for="es-keys"><span class="feat">keys</span><code>print([...[1].keys()][0])</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-values">
+            <label for="es-values"><span class="feat">values</span><code>print([...[1].values()][0])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-includes">
+            <label for="es-includes"><span class="feat">includes</span><code>print("10".includes("1") ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-starts">
+            <label for="es-starts"><span class="feat">startsWith</span><code>print("10".startsWith("1") ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-ends">
+            <label for="es-ends"><span class="feat">endsWith</span><code>print("01".endsWith("1") ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-repeat">
+            <label for="es-repeat"><span class="feat">repeat</span><code>print(Number("1".repeat(1)))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-code">
+            <label for="es-code"><span class="feat">fromCodePoint</span><code>print(String.fromCodePoint(1).codePointAt(0))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-norm">
+            <label for="es-norm"><span class="feat">normalize</span><code>print("\u00C5".normalize("NFD") === "\u00C5" ? 0 : 1)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-finite">
+            <label for="es-finite"><span class="feat">Number.isFinite</span><code>print(Number.isFinite(1) ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-integer">
+            <label for="es-integer"><span class="feat">Number.isInteger</span><code>print(Number.isInteger(1) ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-isnan">
+            <label for="es-isnan"><span class="feat">Number.isNaN</span><code>print(Number.isNaN(1) ? 1 : 0)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-safe">
+            <label for="es-safe"><span class="feat">Number.isSafeInteger</span><code>print(Number.isSafeInteger(1) ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-parsei">
+            <label for="es-parsei"><span class="feat">Number.parseInt</span><code>print(Number.parseInt("1", 10))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-parsef">
+            <label for="es-parsef"><span class="feat">Number.parseFloat</span><code>print(Number.parseFloat("1"))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-eps">
+            <label for="es-eps"><span class="feat">Number.EPSILON</span><code>print(Number.isInteger(Number.EPSILON) ? 0 : 1)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-max">
+            <label for="es-max"><span class="feat">Number.MAX_SAFE_INTEGER</span><code>print(Number.MAX_SAFE_INTEGER &gt; 1 ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-min">
+            <label for="es-min"><span class="feat">Number.MIN_SAFE_INTEGER</span><code>print(Number.MIN_SAFE_INTEGER &lt; 0 ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-assign">
+            <label for="es-assign"><span class="feat">Object.assign</span><code>print(Object.assign({ a: 0 }, { a: 1 }).a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-is">
+            <label for="es-is"><span class="feat">Object.is</span><code>print(Object.is(1, 1) ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-objproto">
+            <label for="es-objproto"><span class="feat">Object.setPrototypeOf</span><code>print(Object.setPrototypeOf({}, { a: 1 }).a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-ownsyms">
+            <label for="es-ownsyms"><span class="feat">Object.getOwnPropertySymbols</span><code>print(Object.getOwnPropertySymbols({ [Symbol()]: 1 }).length)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-typed-of">
+            <label for="es-typed-of"><span class="feat">TypedArray.of</span><code>print(Uint8Array.of(1)[0])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-typed-from">
+            <label for="es-typed-from"><span class="feat">TypedArray.from</span><code>print(Uint8Array.from([0])[0])</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-typed-find">
+            <label for="es-typed-find"><span class="feat">TypedArray.find</span><code>print(Uint8Array.from([0, 1]).find(n =&gt; n))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Math</legend>
+            <input type="radio" name="program" id="es-acosh">
+            <label for="es-acosh"><span class="feat">Math.acosh</span><code>print(Math.acosh(1))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-asinh">
+            <label for="es-asinh"><span class="feat">Math.asinh</span><code>print(Math.asinh(0))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-atanh">
+            <label for="es-atanh"><span class="feat">Math.atanh</span><code>print(Math.atanh(0))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-cbrt">
+            <label for="es-cbrt"><span class="feat">Math.cbrt</span><code>print(Math.cbrt(1))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-clz">
+            <label for="es-clz"><span class="feat">Math.clz32</span><code>print(Math.clz32(-2147483648))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-cosh">
+            <label for="es-cosh"><span class="feat">Math.cosh</span><code>print(Math.cosh(0))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-expm1">
+            <label for="es-expm1"><span class="feat">Math.expm1</span><code>print(Math.expm1(0))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-fround">
+            <label for="es-fround"><span class="feat">Math.fround</span><code>print(Math.fround(1))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-hypot">
+            <label for="es-hypot"><span class="feat">Math.hypot</span><code>print(Math.hypot(0, 0))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-imul">
+            <label for="es-imul"><span class="feat">Math.imul</span><code>print(Math.imul(1, 1))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-log1p">
+            <label for="es-log1p"><span class="feat">Math.log1p</span><code>print(Math.log1p(0))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-log10">
+            <label for="es-log10"><span class="feat">Math.log10</span><code>print(Math.log10(1))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-log2">
+            <label for="es-log2"><span class="feat">Math.log2</span><code>print(Math.log2(1))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-sign">
+            <label for="es-sign"><span class="feat">Math.sign</span><code>print(Math.sign(1))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-sinh">
+            <label for="es-sinh"><span class="feat">Math.sinh</span><code>print(Math.sinh(0))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-tanh">
+            <label for="es-tanh"><span class="feat">Math.tanh</span><code>print(Math.tanh(0))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-trunc">
+            <label for="es-trunc"><span class="feat">Math.trunc</span><code>print(Math.trunc(1))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
           </fieldset>
         </div>
 

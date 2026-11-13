@@ -84,28 +84,29 @@ print(a + b)</code></pre>
       <p class="formula">printed = 2 × (column 2) + (column 4)</p>
       <dl>
         <dt><code>print(0)</code></dt>
-        <dd>Ten empty cells. <code>0000000000</code></dd>
+        <dd>Ten empty cells. <code class="pattern">0000000000</code></dd>
         <dt><code>print(1)</code></dt>
-        <dd>One living cell in column 6. <code>0000010000</code></dd>
+        <dd>One living cell in column 6. <code class="pattern">0000010000</code></dd>
         <dt><code>print(! a)</code></dt>
         <dd>
           <code>a</code> is written in column 3. Column 6 is living.
-          <code>00a0010000</code>.
+          <code class="pattern">00a0010000</code>
           When <code>a</code> is <code>0</code>, this is the same row as <code>print(1)</code>.
         </dd>
         <dt><code>print(a &amp;&amp; b)</code></dt>
         <dd>
-          <code>1 a 0 1 b 0 1 0 0 0</code>.
+          <code class="pattern">1 a 0 1 b 0 1 0 0 0</code>
           <code>a</code> is column 2. <code>b</code> is column 5.
         </dd>
         <dt><code>print(a || b)</code></dt>
         <dd>
           <code>a</code> is column 6. <code>b</code> is column 7.
-          Every other cell is empty. <code>00000ab000</code>.
+          Every other cell is empty.
+          <code class="pattern">00000ab000</code>
         </dd>
         <dt><code>print(a + b)</code></dt>
         <dd>
-          <code>1 a b 1 0 0 1 0 0 0</code>.
+          <code class="pattern">1 a b 1 0 0 1 0 0 0</code>
           <code>a</code> is column 2. <code>b</code> is column 3.
           On the third step, column 2 holds the carry and column 4 holds the sum bit.
         </dd>

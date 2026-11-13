@@ -5,6 +5,9 @@
   --muted: #6b6258;
   --line: #ddd4c6;
   --soft: #efe8db;
+  --cell: 1.45rem;
+  --cell-gap: 0.22rem;
+  --gutter: 5rem;
 }
 
 * {
@@ -424,34 +427,43 @@ dd {
   margin-top: 1.2rem;
 }
 
-.menu {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 1.3rem;
+.stage {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: 0 -1.4rem;
+  padding: 0.45rem 1.4rem 0.85rem;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 12px 14px -12px color-mix(in srgb, var(--ink) 35%, transparent);
 }
 
 .menu fieldset {
   width: 100%;
-  margin: 0.3rem 0 0;
+  min-width: 0;
+  margin: 0;
   padding: 0;
   border: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
 }
 
 .menu legend {
-  width: 100%;
-  margin: 0.7rem 0 0.15rem;
+  margin: 1.25rem 0 0.3rem;
   padding: 0;
   font-size: 1.05rem;
 }
 
+.menu fieldset:first-child legend {
+  margin-top: 0.85rem;
+}
+
 .feat {
+  grid-column: 1;
+  min-width: 0;
   color: var(--muted);
   font-size: 0.75rem;
   letter-spacing: 0.03em;
+  line-height: 1.3;
+  overflow-wrap: break-word;
 }
 
 .menu input:checked + label .feat {
@@ -459,8 +471,10 @@ dd {
 }
 
 .menu code {
+  grid-column: 2;
+  min-width: 0;
   white-space: pre-wrap;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .menu input {
@@ -468,20 +482,25 @@ dd {
   width: 1px;
   height: 1px;
   opacity: 0;
+  scroll-margin-top: 18rem;
 }
 
 .menu label {
   display: grid;
-  gap: 0.12rem;
-  padding: 0.4rem 0.6rem;
-  border: 1px solid var(--line);
+  min-width: 0;
+  grid-template-columns: minmax(9.5rem, 13.5rem) minmax(0, 1fr) auto;
+  column-gap: 0.9rem;
+  align-items: start;
+  padding: 0.38rem 0.45rem;
+  border-bottom: 1px solid var(--line);
   cursor: pointer;
+  scroll-margin-top: 18rem;
 }
 
 .menu input:checked + label {
   background: var(--ink);
   color: var(--paper);
-  border-color: var(--ink);
+  border-bottom-color: var(--ink);
 }
 
 .menu input:focus-visible + label {
@@ -490,6 +509,8 @@ dd {
 }
 
 .menu .bits {
+  grid-column: 3;
+  justify-self: end;
   color: var(--muted);
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.68rem;
@@ -504,7 +525,7 @@ dd {
 .scale-wrap,
 .line {
   display: grid;
-  grid-template-columns: 5rem auto;
+  grid-template-columns: var(--gutter) auto;
   column-gap: 0.7rem;
   align-items: center;
 }
@@ -516,8 +537,8 @@ dd {
 .scale,
 .row {
   display: grid;
-  grid-template-columns: repeat(10, 1.45rem);
-  gap: 0.22rem;
+  grid-template-columns: repeat(10, var(--cell));
+  gap: var(--cell-gap);
 }
 
 .scale {
@@ -540,8 +561,8 @@ dd {
 
 .cell {
   display: block;
-  width: 1.45rem;
-  height: 1.45rem;
+  width: var(--cell);
+  height: var(--cell);
   background: color-mix(in srgb, var(--ink) calc(var(--v) * 100%), var(--soft));
   box-shadow: inset 0 0 0 1px var(--line);
 }
@@ -573,7 +594,7 @@ dd {
 .from-b > .line > .row > .cell:nth-child(10) { --v: var(--b9); }
 
 .printed {
-  margin: 0.8rem 0 0 5.7rem;
+  margin: 0.8rem 0 0 calc(var(--gutter) + 0.7rem);
   font-size: 1.35rem;
 }
 
@@ -598,5 +619,54 @@ dd {
 .last .n1 { opacity: calc((1 - var(--b1)) * var(--b3)); }
 .last .n2 { opacity: calc(var(--b1) * (1 - var(--b3))); }
 .last .n3 { opacity: calc(var(--b1) * var(--b3)); }
+
+@media (max-width: 42rem) {
+  :root {
+    --cell: 1.12rem;
+    --cell-gap: 0.08rem;
+    --gutter: 3.4rem;
+  }
+
+  main {
+    padding: 1.6rem 0.7rem 3rem;
+  }
+
+  .stage {
+    margin: 0 -0.7rem;
+    padding: 0.3rem 0.7rem 0.65rem;
+  }
+
+  .menu label {
+    grid-template-columns: 1fr;
+    row-gap: 0.12rem;
+  }
+
+  .menu label .feat,
+  .menu code,
+  .menu .bits {
+    grid-column: 1;
+  }
+
+  .menu .bits {
+    justify-self: start;
+  }
+
+  .menu code {
+    font-size: 0.82rem;
+  }
+
+  .menu input,
+  .menu label {
+    scroll-margin-top: 14rem;
+  }
+
+  .when {
+    font-size: 0.68rem;
+  }
+
+  .printed {
+    font-size: 1.15rem;
+  }
+}
 
 

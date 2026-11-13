@@ -128,6 +128,55 @@ print(a + b)</code></pre>
       </p>
 
       <div class="sheet">
+        <div class="stage">
+          <div class="scale-wrap" aria-hidden="true">
+            <span></span>
+            <div class="scale">
+              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+              <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+            </div>
+          </div>
+
+          <!--
+            Four rows. The outer row is the program.
+            Each nested row is one pass of Rule 110.
+            Step 3 is the innermost row. Its column 2 and column 4 are the printout.
+          -->
+          <div class="universe from-a">
+            <div class="line">
+              <span class="when">program</span>
+              <div class="row">
+                <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+              </div>
+            </div>
+            <div class="from-b">
+              <div class="line">
+                <span class="when">step 1</span>
+                <div class="row">
+                  <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                </div>
+              </div>
+              <div class="from-a">
+                <div class="line">
+                  <span class="when">step 2</span>
+                  <div class="row">
+                    <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                  </div>
+                </div>
+                <div class="from-b last">
+                  <div class="line">
+                    <span class="when">step 3</span>
+                    <div class="row">
+                      <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                    </div>
+                  </div>
+                  <p class="printed">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="menu">
           <fieldset>
             <legend>The six rows</legend>
@@ -468,55 +517,6 @@ import { a } from "./m.js"; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 
             <input type="radio" name="program" id="es-trunc">
             <label for="es-trunc"><span class="feat">Math.trunc</span><code>print(Math.trunc(1))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
           </fieldset>
-        </div>
-
-        <div class="stage">
-          <div class="scale-wrap" aria-hidden="true">
-            <span></span>
-            <div class="scale">
-              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-              <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
-            </div>
-          </div>
-
-          <!--
-            Four rows. The outer row is the program.
-            Each nested row is one pass of Rule 110.
-            Step 3 is the innermost row. Its column 2 and column 4 are the printout.
-          -->
-          <div class="universe from-a">
-            <div class="line">
-              <span class="when">program</span>
-              <div class="row">
-                <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
-              </div>
-            </div>
-            <div class="from-b">
-              <div class="line">
-                <span class="when">step 1</span>
-                <div class="row">
-                  <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
-                </div>
-              </div>
-              <div class="from-a">
-                <div class="line">
-                  <span class="when">step 2</span>
-                  <div class="row">
-                    <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
-                  </div>
-                </div>
-                <div class="from-b last">
-                  <div class="line">
-                    <span class="when">step 3</span>
-                    <div class="row">
-                      <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
-                    </div>
-                  </div>
-                  <p class="printed">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

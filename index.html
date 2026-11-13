@@ -111,6 +111,104 @@ print(a + b)</code></pre>
         </dd>
       </dl>
     </section>
+
+    <section>
+      <h2>Run</h2>
+      <p>
+        Choose a program. The first row is that program.
+        Each row under it applies the formula once.
+        On step 3, column 2 and column 4 are the printed number.
+      </p>
+
+      <div class="sheet">
+        <div class="menu">
+          <input type="radio" name="program" id="p-zero">
+          <label for="p-zero"><code>print(0)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+
+          <input type="radio" name="program" id="p-one">
+          <label for="p-one"><code>print(1)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+
+          <input type="radio" name="program" id="p-not-zero">
+          <label for="p-not-zero"><code>print(!0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+
+          <input type="radio" name="program" id="p-not-one">
+          <label for="p-not-one"><code>print(!1)</code><span class="bits">0 0 1 0 0 1 0 0 0 0</span></label>
+
+          <input type="radio" name="program" id="p-and-10">
+          <label for="p-and-10"><code>print(1 &amp;&amp; 0)</code><span class="bits">1 1 0 1 0 1 0 0 0 0</span></label>
+
+          <input type="radio" name="program" id="p-and-11">
+          <label for="p-and-11"><code>print(1 &amp;&amp; 1)</code><span class="bits">1 1 0 1 1 1 0 0 0 0</span></label>
+
+          <input type="radio" name="program" id="p-or-01">
+          <label for="p-or-01"><code>print(0 || 1)</code><span class="bits">0 0 0 0 0 0 1 0 0 0</span></label>
+
+          <input type="radio" name="program" id="p-or-11">
+          <label for="p-or-11"><code>print(1 || 1)</code><span class="bits">0 0 0 0 0 1 1 0 0 0</span></label>
+
+          <input type="radio" name="program" id="p-add-00">
+          <label for="p-add-00"><code>print(0 + 0)</code><span class="bits">1 0 0 1 0 0 1 0 0 0</span></label>
+
+          <input type="radio" name="program" id="p-add-10">
+          <label for="p-add-10"><code>print(1 + 0)</code><span class="bits">1 1 0 1 0 0 1 0 0 0</span></label>
+
+          <input type="radio" name="program" id="p-add-01">
+          <label for="p-add-01"><code>print(0 + 1)</code><span class="bits">1 0 1 1 0 0 1 0 0 0</span></label>
+
+          <input type="radio" name="program" id="p-add-11" checked>
+          <label for="p-add-11"><code>print(1 + 1)</code><span class="bits">1 1 1 1 0 0 1 0 0 0</span></label>
+        </div>
+
+        <div class="stage">
+          <div class="scale-wrap" aria-hidden="true">
+            <span></span>
+            <div class="scale">
+              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+              <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+            </div>
+          </div>
+
+          <!--
+            Four rows. The outer row is the program.
+            Each nested row is one pass of Rule 110.
+            Step 3 is the innermost row. Its column 2 and column 4 are the printout.
+          -->
+          <div class="universe from-a">
+            <div class="line">
+              <span class="when">program</span>
+              <div class="row">
+                <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+              </div>
+            </div>
+            <div class="from-b">
+              <div class="line">
+                <span class="when">step 1</span>
+                <div class="row">
+                  <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                </div>
+              </div>
+              <div class="from-a">
+                <div class="line">
+                  <span class="when">step 2</span>
+                  <div class="row">
+                    <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                  </div>
+                </div>
+                <div class="from-b last">
+                  <div class="line">
+                    <span class="when">step 3</span>
+                    <div class="row">
+                      <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                    </div>
+                  </div>
+                  <p class="printed">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </body>
 </html>

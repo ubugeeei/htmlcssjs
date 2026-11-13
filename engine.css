@@ -19,7 +19,7 @@ body {
 }
 
 main {
-  max-width: 40rem;
+  max-width: 52rem;
   margin: 0 auto;
   padding: 3.5rem 1.4rem 5rem;
 }
@@ -118,4 +118,303 @@ dt {
 dd {
   margin-left: 0;
   color: var(--ink);
+}
+
+/*
+  One number per column. They inherit, and they start at 0,
+  so a program only has to name the cells it turns on.
+  Writing every cell anyway keeps each tape readable here.
+*/
+@property --a0 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --a1 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --a2 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --a3 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --a4 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --a5 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --a6 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --a7 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --a8 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --a9 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --b0 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --b1 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --b2 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --b3 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --b4 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --b5 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --b6 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --b7 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --b8 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --b9 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --v { syntax: "<number>"; inherits: true; initial-value: 0; }
+
+/*
+  Rule 110, one line per column.
+
+  next = min(1, (1 - left) * (center + right) + left * abs(center - right))
+
+  A .from-b row reads --a and writes --b.
+  The .from-a nested inside it reads --b and writes the next --a.
+  The program is the outer --a row. Three steps end on --b.
+  Column 2 is --b1, the twos place. Column 4 is --b3, the ones place.
+  A missing neighbor past either end is 0.
+*/
+
+.from-b {
+  --b0: min(1, calc((1 - 0) * (var(--a0) + var(--a1)) + 0 * abs(var(--a0) - var(--a1))));
+  --b1: min(1, calc((1 - var(--a0)) * (var(--a1) + var(--a2)) + var(--a0) * abs(var(--a1) - var(--a2))));
+  --b2: min(1, calc((1 - var(--a1)) * (var(--a2) + var(--a3)) + var(--a1) * abs(var(--a2) - var(--a3))));
+  --b3: min(1, calc((1 - var(--a2)) * (var(--a3) + var(--a4)) + var(--a2) * abs(var(--a3) - var(--a4))));
+  --b4: min(1, calc((1 - var(--a3)) * (var(--a4) + var(--a5)) + var(--a3) * abs(var(--a4) - var(--a5))));
+  --b5: min(1, calc((1 - var(--a4)) * (var(--a5) + var(--a6)) + var(--a4) * abs(var(--a5) - var(--a6))));
+  --b6: min(1, calc((1 - var(--a5)) * (var(--a6) + var(--a7)) + var(--a5) * abs(var(--a6) - var(--a7))));
+  --b7: min(1, calc((1 - var(--a6)) * (var(--a7) + var(--a8)) + var(--a6) * abs(var(--a7) - var(--a8))));
+  --b8: min(1, calc((1 - var(--a7)) * (var(--a8) + var(--a9)) + var(--a7) * abs(var(--a8) - var(--a9))));
+  --b9: min(1, calc((1 - var(--a8)) * (var(--a9) + 0) + var(--a8) * abs(var(--a9) - 0)));
+}
+
+.from-b > .from-a {
+  --a0: min(1, calc((1 - 0) * (var(--b0) + var(--b1)) + 0 * abs(var(--b0) - var(--b1))));
+  --a1: min(1, calc((1 - var(--b0)) * (var(--b1) + var(--b2)) + var(--b0) * abs(var(--b1) - var(--b2))));
+  --a2: min(1, calc((1 - var(--b1)) * (var(--b2) + var(--b3)) + var(--b1) * abs(var(--b2) - var(--b3))));
+  --a3: min(1, calc((1 - var(--b2)) * (var(--b3) + var(--b4)) + var(--b2) * abs(var(--b3) - var(--b4))));
+  --a4: min(1, calc((1 - var(--b3)) * (var(--b4) + var(--b5)) + var(--b3) * abs(var(--b4) - var(--b5))));
+  --a5: min(1, calc((1 - var(--b4)) * (var(--b5) + var(--b6)) + var(--b4) * abs(var(--b5) - var(--b6))));
+  --a6: min(1, calc((1 - var(--b5)) * (var(--b6) + var(--b7)) + var(--b5) * abs(var(--b6) - var(--b7))));
+  --a7: min(1, calc((1 - var(--b6)) * (var(--b7) + var(--b8)) + var(--b6) * abs(var(--b7) - var(--b8))));
+  --a8: min(1, calc((1 - var(--b7)) * (var(--b8) + var(--b9)) + var(--b7) * abs(var(--b8) - var(--b9))));
+  --a9: min(1, calc((1 - var(--b8)) * (var(--b9) + 0) + var(--b8) * abs(var(--b9) - 0)));
+}
+
+/* The chosen program is the first row. Full tapes, column 1 through column 10. */
+
+.sheet:has(#p-zero:checked) {
+  /* print(0) */
+  --a0: 0; --a1: 0; --a2: 0; --a3: 0; --a4: 0;
+  --a5: 0; --a6: 0; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#p-one:checked) {
+  /* print(1) — one living cell in column 6 */
+  --a0: 0; --a1: 0; --a2: 0; --a3: 0; --a4: 0;
+  --a5: 1; --a6: 0; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#p-not-zero:checked) {
+  /* print(!0) — column 3 holds 0, column 6 is the scaffold */
+  --a0: 0; --a1: 0; --a2: 0; --a3: 0; --a4: 0;
+  --a5: 1; --a6: 0; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#p-not-one:checked) {
+  /* print(!1) */
+  --a0: 0; --a1: 0; --a2: 1; --a3: 0; --a4: 0;
+  --a5: 1; --a6: 0; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#p-and-10:checked) {
+  /* print(1 && 0) — 1 a 0 1 b 0 1 0 0 0 */
+  --a0: 1; --a1: 1; --a2: 0; --a3: 1; --a4: 0;
+  --a5: 1; --a6: 0; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#p-and-11:checked) {
+  /* print(1 && 1) */
+  --a0: 1; --a1: 1; --a2: 0; --a3: 1; --a4: 1;
+  --a5: 1; --a6: 0; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#p-or-01:checked) {
+  /* print(0 || 1) — operands in columns 6 and 7 */
+  --a0: 0; --a1: 0; --a2: 0; --a3: 0; --a4: 0;
+  --a5: 0; --a6: 1; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#p-or-11:checked) {
+  /* print(1 || 1) */
+  --a0: 0; --a1: 0; --a2: 0; --a3: 0; --a4: 0;
+  --a5: 1; --a6: 1; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#p-add-00:checked) {
+  /* print(0 + 0) — 1 a b 1 0 0 1 0 0 0 */
+  --a0: 1; --a1: 0; --a2: 0; --a3: 1; --a4: 0;
+  --a5: 0; --a6: 1; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#p-add-10:checked) {
+  /* print(1 + 0) */
+  --a0: 1; --a1: 1; --a2: 0; --a3: 1; --a4: 0;
+  --a5: 0; --a6: 1; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#p-add-01:checked) {
+  /* print(0 + 1) */
+  --a0: 1; --a1: 0; --a2: 1; --a3: 1; --a4: 0;
+  --a5: 0; --a6: 1; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#p-add-11:checked) {
+  /* print(1 + 1) */
+  --a0: 1; --a1: 1; --a2: 1; --a3: 1; --a4: 0;
+  --a5: 0; --a6: 1; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet {
+  display: grid;
+  grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
+  gap: 1.5rem 2rem;
+  align-items: start;
+  margin-top: 1.2rem;
+}
+
+.menu {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.menu input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.menu label {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.menu input:checked + label {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.menu input:focus-visible + label {
+  outline: 2px solid #b4532a;
+  outline-offset: 2px;
+}
+
+.menu .bits {
+  color: var(--muted);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.menu input:checked + label .bits {
+  color: var(--paper);
+}
+
+.scale-wrap,
+.line {
+  display: grid;
+  grid-template-columns: 5rem auto;
+  column-gap: 0.7rem;
+  align-items: center;
+}
+
+.line {
+  margin: 0.22rem 0;
+}
+
+.scale,
+.row {
+  display: grid;
+  grid-template-columns: repeat(10, 1.45rem);
+  gap: 0.22rem;
+}
+
+.scale {
+  color: var(--muted);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  text-align: center;
+}
+
+.scale span:nth-child(2),
+.scale span:nth-child(4) {
+  color: #b4532a;
+}
+
+.when {
+  color: var(--muted);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+}
+
+.cell {
+  display: block;
+  width: 1.45rem;
+  height: 1.45rem;
+  background: color-mix(in srgb, var(--ink) calc(var(--v) * 100%), var(--soft));
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.cell.place {
+  box-shadow: inset 0 0 0 2px #b4532a;
+}
+
+.from-a > .line > .row > .cell:nth-child(1) { --v: var(--a0); }
+.from-a > .line > .row > .cell:nth-child(2) { --v: var(--a1); }
+.from-a > .line > .row > .cell:nth-child(3) { --v: var(--a2); }
+.from-a > .line > .row > .cell:nth-child(4) { --v: var(--a3); }
+.from-a > .line > .row > .cell:nth-child(5) { --v: var(--a4); }
+.from-a > .line > .row > .cell:nth-child(6) { --v: var(--a5); }
+.from-a > .line > .row > .cell:nth-child(7) { --v: var(--a6); }
+.from-a > .line > .row > .cell:nth-child(8) { --v: var(--a7); }
+.from-a > .line > .row > .cell:nth-child(9) { --v: var(--a8); }
+.from-a > .line > .row > .cell:nth-child(10) { --v: var(--a9); }
+
+.from-b > .line > .row > .cell:nth-child(1) { --v: var(--b0); }
+.from-b > .line > .row > .cell:nth-child(2) { --v: var(--b1); }
+.from-b > .line > .row > .cell:nth-child(3) { --v: var(--b2); }
+.from-b > .line > .row > .cell:nth-child(4) { --v: var(--b3); }
+.from-b > .line > .row > .cell:nth-child(5) { --v: var(--b4); }
+.from-b > .line > .row > .cell:nth-child(6) { --v: var(--b5); }
+.from-b > .line > .row > .cell:nth-child(7) { --v: var(--b6); }
+.from-b > .line > .row > .cell:nth-child(8) { --v: var(--b7); }
+.from-b > .line > .row > .cell:nth-child(9) { --v: var(--b8); }
+.from-b > .line > .row > .cell:nth-child(10) { --v: var(--b9); }
+
+.printed {
+  margin: 0.8rem 0 0 5.7rem;
+  font-size: 1.35rem;
+}
+
+.nums {
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1.2em;
+  vertical-align: -0.15em;
+}
+
+.nums .n {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.last .n0 { opacity: calc((1 - var(--b1)) * (1 - var(--b3))); }
+.last .n1 { opacity: calc((1 - var(--b1)) * var(--b3)); }
+.last .n2 { opacity: calc(var(--b1) * (1 - var(--b3))); }
+.last .n3 { opacity: calc(var(--b1) * var(--b3)); }
+
+@media (max-width: 760px) {
+  .sheet {
+    grid-template-columns: 1fr;
+  }
+
+  .menu label {
+    justify-content: flex-start;
+  }
 }

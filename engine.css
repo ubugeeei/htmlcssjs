@@ -258,9 +258,81 @@ dd {
   --a5: 0; --a6: 1; --a7: 0; --a8: 0; --a9: 0;
 }
 
-.sheet:has(#p-add-11:checked) {
-  /* print(1 + 1) */
+.sheet:has(#p-add-11:checked),
+.sheet:has(#es-arrow:checked) {
+  /* 1 + 1, and any program whose value is 2 */
   --a0: 1; --a1: 1; --a2: 1; --a3: 1; --a4: 0;
+  --a5: 0; --a6: 1; --a7: 0; --a8: 0; --a9: 0;
+}
+
+/* ES6 programs whose value is the constant 0. */
+.sheet:has(#es-const:checked),
+.sheet:has(#es-block:checked),
+.sheet:has(#es-method:checked),
+.sheet:has(#es-static:checked),
+.sheet:has(#es-dest-obj:checked),
+.sheet:has(#es-dest-nest:checked),
+.sheet:has(#es-name:checked),
+.sheet:has(#es-tail:checked) {
+  --a0: 0; --a1: 0; --a2: 0; --a3: 0; --a4: 0;
+  --a5: 0; --a6: 0; --a7: 0; --a8: 0; --a9: 0;
+}
+
+/* ES6 programs whose value is the constant 1. */
+.sheet:has(#es-let:checked),
+.sheet:has(#es-this:checked),
+.sheet:has(#es-default:checked),
+.sheet:has(#es-rest:checked),
+.sheet:has(#es-spread:checked),
+.sheet:has(#es-dest-arr:checked),
+.sheet:has(#es-dest-def:checked),
+.sheet:has(#es-dest-rest:checked),
+.sheet:has(#es-template:checked),
+.sheet:has(#es-tag:checked),
+.sheet:has(#es-raw:checked),
+.sheet:has(#es-short:checked),
+.sheet:has(#es-computed:checked),
+.sheet:has(#es-proto:checked),
+.sheet:has(#es-class:checked),
+.sheet:has(#es-ctor:checked),
+.sheet:has(#es-extends:checked),
+.sheet:has(#es-super:checked),
+.sheet:has(#es-new-target:checked),
+.sheet:has(#es-block-fn:checked),
+.sheet:has(#es-bin:checked),
+.sheet:has(#es-oct:checked),
+.sheet:has(#es-u:checked),
+.sheet:has(#es-regex-u:checked),
+.sheet:has(#es-regex-y:checked),
+.sheet:has(#es-mod:checked),
+.sheet:has(#es-for:checked),
+.sheet:has(#es-gen:checked),
+.sheet:has(#es-yield:checked) {
+  --a0: 0; --a1: 0; --a2: 0; --a3: 0; --a4: 0;
+  --a5: 1; --a6: 0; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#es-not:checked) {
+  /* const a = 1; print(Number(!a)) */
+  --a0: 0; --a1: 0; --a2: 1; --a3: 0; --a4: 0;
+  --a5: 1; --a6: 0; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#es-and:checked) {
+  /* const a = 1, b = 0; print(a && b) */
+  --a0: 1; --a1: 1; --a2: 0; --a3: 1; --a4: 0;
+  --a5: 1; --a6: 0; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#es-or:checked) {
+  /* const f = (a = 0) => a || 1; print(f()) */
+  --a0: 0; --a1: 0; --a2: 0; --a3: 0; --a4: 0;
+  --a5: 0; --a6: 1; --a7: 0; --a8: 0; --a9: 0;
+}
+
+.sheet:has(#es-spread-call:checked) {
+  /* add(...[1, 0]) */
+  --a0: 1; --a1: 1; --a2: 0; --a3: 1; --a4: 0;
   --a5: 0; --a6: 1; --a7: 0; --a8: 0; --a9: 0;
 }
 
@@ -273,6 +345,38 @@ dd {
   flex-wrap: wrap;
   gap: 0.4rem;
   margin-bottom: 1.3rem;
+}
+
+.menu fieldset {
+  width: 100%;
+  margin: 0.3rem 0 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.menu legend {
+  width: 100%;
+  margin: 0.7rem 0 0.15rem;
+  padding: 0;
+  font-size: 1.05rem;
+}
+
+.feat {
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+}
+
+.menu input:checked + label .feat {
+  color: var(--paper);
+}
+
+.menu code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .menu input {

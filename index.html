@@ -13,7 +13,7 @@
       <p class="kicker">HTML and CSS</p>
       <h1>A JavaScript engine on Rule 110</h1>
       <p class="lead">
-        A program on this page is a single <code>print</code>.
+        A program on this page is a single <code>print</code>, including one program for every ES6 feature.
         The engine writes that program as ten cells.
         Each following row is cellular automaton Rule 110.
         After three rows, two of the cells are the number <code>print</code> shows.
@@ -119,10 +119,18 @@ print(a + b)</code></pre>
         Choose a program. The first row is that program.
         Each row under it applies the formula once.
         On step 3, column 2 and column 4 are the printed number.
+        An ES6 program is written with the row of its value.
+        A bare <code>0</code> or <code>1</code> uses that constant row.
+        <code>!</code>, <code>&amp;&amp;</code>, <code>||</code>, and <code>+</code> use their own rows.
+        The number 2 uses the <code>1 + 1</code> row.
+        <code>true</code> prints as 1 and <code>false</code> prints as 0.
+        A promise is read after it settles.
       </p>
 
       <div class="sheet">
         <div class="menu">
+          <fieldset>
+            <legend>The six rows</legend>
           <input type="radio" name="program" id="p-zero">
           <label for="p-zero"><code>print(0)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
 
@@ -158,6 +166,116 @@ print(a + b)</code></pre>
 
           <input type="radio" name="program" id="p-add-11" checked>
           <label for="p-add-11"><code>print(1 + 1)</code><span class="bits">1 1 1 1 0 0 1 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Bindings</legend>
+            <input type="radio" name="program" id="es-let">
+            <label for="es-let"><span class="feat">let</span><code>let a = 1; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-const">
+            <label for="es-const"><span class="feat">const</span><code>const a = 0; print(a)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-block">
+            <label for="es-block"><span class="feat">block scope</span><code>let a = 0; { let a = 1 } print(a)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Functions</legend>
+            <input type="radio" name="program" id="es-arrow">
+            <label for="es-arrow"><span class="feat">arrow</span><code>const add = (a, b) =&gt; a + b; print(add(1, 1))</code><span class="bits">1 1 1 1 0 0 1 0 0 0</span></label>
+            <input type="radio" name="program" id="es-this">
+            <label for="es-this"><span class="feat">lexical this</span><code>const o = { a: 1, f() { return (() =&gt; this.a)() } }; print(o.f())</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-default">
+            <label for="es-default"><span class="feat">default parameter</span><code>const f = (a = 1) =&gt; a; print(f())</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-rest">
+            <label for="es-rest"><span class="feat">rest</span><code>const f = (...a) =&gt; a[0]; print(f(1))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-spread">
+            <label for="es-spread"><span class="feat">spread</span><code>print([...[1]][0])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-spread-call">
+            <label for="es-spread-call"><span class="feat">spread in a call</span><code>const add = (a, b) =&gt; a + b; print(add(...[1, 0]))</code><span class="bits">1 1 0 1 0 0 1 0 0 0</span></label>
+            <input type="radio" name="program" id="es-name">
+            <label for="es-name"><span class="feat">inferred name</span><code>print((() =&gt; 0).name.length)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-tail">
+            <label for="es-tail"><span class="feat">tail call</span><code>const f = n =&gt; n ? f(0) : 0; print(f(1))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-new-target">
+            <label for="es-new-target"><span class="feat">new.target</span><code>function F() { this.a = new.target ? 1 : 0 } print(new F().a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-block-fn">
+            <label for="es-block-fn"><span class="feat">block function</span><code>{ function g() { return 1 } print(g()) }</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-not">
+            <label for="es-not"><span class="feat">const and !</span><code>const a = 1; print(Number(!a))</code><span class="bits">0 0 1 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-and">
+            <label for="es-and"><span class="feat">const and &amp;&amp;</span><code>const a = 1, b = 0; print(a &amp;&amp; b)</code><span class="bits">1 1 0 1 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-or">
+            <label for="es-or"><span class="feat">default and ||</span><code>const f = (a = 0) =&gt; a || 1; print(f())</code><span class="bits">0 0 0 0 0 0 1 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Destructuring</legend>
+            <input type="radio" name="program" id="es-dest-arr">
+            <label for="es-dest-arr"><span class="feat">array</span><code>const [a] = [1]; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-dest-obj">
+            <label for="es-dest-obj"><span class="feat">object</span><code>const { a } = { a: 0 }; print(a)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-dest-def">
+            <label for="es-dest-def"><span class="feat">default</span><code>const { a = 1 } = {}; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-dest-nest">
+            <label for="es-dest-nest"><span class="feat">nested</span><code>const { a: [b] } = { a: [0] }; print(b)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-dest-rest">
+            <label for="es-dest-rest"><span class="feat">rest</span><code>const [a, ...b] = [1, 0]; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Objects and classes</legend>
+            <input type="radio" name="program" id="es-short">
+            <label for="es-short"><span class="feat">shorthand property</span><code>const a = 1; print({ a }.a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-method">
+            <label for="es-method"><span class="feat">method</span><code>print({ m() { return 0 } }.m())</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-computed">
+            <label for="es-computed"><span class="feat">computed property</span><code>print({ ["a"]: 1 }.a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-proto">
+            <label for="es-proto"><span class="feat">__proto__</span><code>print({ __proto__: { a: 1 } }.a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-class">
+            <label for="es-class"><span class="feat">class</span><code>class A { m() { return 1 } } print(new A().m())</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-ctor">
+            <label for="es-ctor"><span class="feat">constructor</span><code>class A { constructor() { this.a = 1 } } print(new A().a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-extends">
+            <label for="es-extends"><span class="feat">extends</span><code>class A { m() { return 1 } } class B extends A {} print(new B().m())</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-super">
+            <label for="es-super"><span class="feat">super</span><code>class A { m() { return 1 } } class B extends A { m() { return super.m() } } print(new B().m())</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-static">
+            <label for="es-static"><span class="feat">static</span><code>class A { static m() { return 0 } } print(A.m())</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Templates, literals, modules</legend>
+            <input type="radio" name="program" id="es-template">
+            <label for="es-template"><span class="feat">template</span><code>print(Number(`${1}`))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-tag">
+            <label for="es-tag"><span class="feat">tagged template</span><code>const tag = s =&gt; Number(s[0]); print(tag`1`)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-raw">
+            <label for="es-raw"><span class="feat">String.raw</span><code>print(Number(String.raw`1`))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-bin">
+            <label for="es-bin"><span class="feat">binary literal</span><code>print(0b1)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-oct">
+            <label for="es-oct"><span class="feat">octal literal</span><code>print(0o1)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-u">
+            <label for="es-u"><span class="feat">unicode escape</span><code>print("\u{1}".codePointAt(0))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-regex-u">
+            <label for="es-regex-u"><span class="feat">unicode regexp</span><code>print(/\u{1}/u.test("\u{1}") ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-regex-y">
+            <label for="es-regex-y"><span class="feat">sticky regexp</span><code>const r = /1/y; print(r.test("1") ? 1 : 0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-mod">
+            <label for="es-mod"><span class="feat">modules</span><code>export const a = 1
+import { a } from "./m.js"; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Iteration</legend>
+            <input type="radio" name="program" id="es-for">
+            <label for="es-for"><span class="feat">for...of</span><code>let s = 0; for (const n of [1]) s += n; print(s)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-gen">
+            <label for="es-gen"><span class="feat">generator</span><code>function* g() { yield 1 } print(g().next().value)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+            <input type="radio" name="program" id="es-yield">
+            <label for="es-yield"><span class="feat">yield*</span><code>function* a() { yield 1 } function* b() { yield* a() } print(b().next().value)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+          </fieldset>
         </div>
 
         <div class="stage">

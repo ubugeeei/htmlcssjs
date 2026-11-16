@@ -8,6 +8,7 @@
   --cell: 1.45rem;
   --cell-gap: 0.22rem;
   --gutter: 5rem;
+  --program-cols: 15.6rem minmax(0, 1fr) auto;
 }
 
 * {
@@ -432,10 +433,25 @@ dd {
   top: 0;
   z-index: 2;
   margin: 0 -1.4rem;
-  padding: 0.45rem 1.4rem 0.85rem;
+  padding: 0.45rem 1.4rem 0.55rem;
   background: var(--paper);
   border-bottom: 1px solid var(--line);
-  box-shadow: 0 12px 14px -12px color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: var(--program-cols);
+  column-gap: 0.9rem;
+  margin-top: 0.85rem;
+  padding: 0.15rem 0.45rem 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cols span:last-child {
+  justify-self: end;
 }
 
 .menu fieldset {
@@ -460,10 +476,9 @@ dd {
   grid-column: 1;
   min-width: 0;
   color: var(--muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.03em;
+  font-size: 0.72rem;
   line-height: 1.3;
-  overflow-wrap: break-word;
+  hyphens: none;
 }
 
 .menu input:checked + label .feat {
@@ -473,8 +488,10 @@ dd {
 .menu code {
   grid-column: 2;
   min-width: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
   white-space: pre-wrap;
-  overflow-wrap: break-word;
+  hyphens: none;
 }
 
 .menu input {
@@ -488,7 +505,7 @@ dd {
 .menu label {
   display: grid;
   min-width: 0;
-  grid-template-columns: minmax(9.5rem, 13.5rem) minmax(0, 1fr) auto;
+  grid-template-columns: var(--program-cols);
   column-gap: 0.9rem;
   align-items: start;
   padding: 0.38rem 0.45rem;
@@ -636,6 +653,10 @@ dd {
     padding: 0.3rem 0.7rem 0.65rem;
   }
 
+  .cols {
+    display: none;
+  }
+
   .menu label {
     grid-template-columns: 1fr;
     row-gap: 0.12rem;
@@ -652,7 +673,9 @@ dd {
   }
 
   .menu code {
-    font-size: 0.82rem;
+    font-size: 0.74rem;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
   }
 
   .menu input,
@@ -666,6 +689,12 @@ dd {
 
   .printed {
     font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 24rem) {
+  .menu code {
+    font-size: 0.64rem;
   }
 }
 

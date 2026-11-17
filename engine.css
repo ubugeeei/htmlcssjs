@@ -493,6 +493,10 @@ dd {
   margin-top: 0.85rem;
 }
 
+.menu legend:target {
+  color: #b4532a;
+}
+
 .feat {
   grid-column: 1;
   min-width: 0;

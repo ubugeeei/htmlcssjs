@@ -125,6 +125,8 @@ print(a + b)</code></pre>
         The number 2 uses the <code>1 + 1</code> row.
         <code>true</code> prints as 1 and <code>false</code> prints as 0.
         A promise is read after it settles.
+        “Then add 1” loads that number into a second program and runs the formula three more times.
+        Column 2 and column 4 go in as the number, column 6 is on, and those same columns come out one higher.
       </p>
 
       <div class="sheet">
@@ -142,35 +144,73 @@ print(a + b)</code></pre>
             Each nested row is one pass of Rule 110.
             Step 3 is the innermost row. Its column 2 and column 4 are the printout.
           -->
-          <div class="universe from-a">
-            <div class="line">
+          <div class="universe from-a pass-1">
+            <div class="line one">
               <span class="when">program</span>
               <div class="row">
                 <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
               </div>
             </div>
             <div class="from-b">
-              <div class="line">
+              <div class="line one">
                 <span class="when">step 1</span>
                 <div class="row">
                   <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
                 </div>
               </div>
               <div class="from-a">
-                <div class="line">
+                <div class="line one">
                   <span class="when">step 2</span>
                   <div class="row">
                     <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
                   </div>
                 </div>
                 <div class="from-b last">
-                  <div class="line">
+                  <div class="line one">
                     <span class="when">step 3</span>
                     <div class="row">
                       <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
                     </div>
                   </div>
-                  <p class="printed">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
+                  <p class="printed one">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
+                  <!--
+                    Second instruction. Column 2 and column 4 are the number
+                    from the first program. Column 6 stays on. Three steps of
+                    the same formula add 1. Checked for 0, 1, and 2.
+                  -->
+                  <div class="pass-2 from-c">
+                    <div class="line">
+                      <span class="when">add 1</span>
+                      <div class="row">
+                        <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                      </div>
+                    </div>
+                    <div class="from-d">
+                      <div class="line">
+                        <span class="when">step 1</span>
+                        <div class="row">
+                          <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                        </div>
+                      </div>
+                      <div class="from-c">
+                        <div class="line">
+                          <span class="when">step 2</span>
+                          <div class="row">
+                            <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                          </div>
+                        </div>
+                        <div class="from-d last2">
+                          <div class="line">
+                            <span class="when">step 3</span>
+                            <div class="row">
+                              <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                            </div>
+                          </div>
+                          <p class="printed two">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -180,6 +220,7 @@ print(a + b)</code></pre>
             <span>program</span>
             <span>tape</span>
           </div>
+          <label class="then" for="then-one"><input id="then-one" type="checkbox"> then add 1</label>
         </div>
 
         <div class="menu">

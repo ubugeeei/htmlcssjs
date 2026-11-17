@@ -183,47 +183,62 @@ print(a + b)</code></pre>
         </div>
 
         <div class="menu">
+          <nav class="jumps" aria-label="Sections">
+            <a href="#sec-six">Six rows</a>
+            <a href="#sec-bindings">Bindings</a>
+            <a href="#sec-functions">Functions</a>
+            <a href="#sec-destructure">Destructuring</a>
+            <a href="#sec-objects">Objects</a>
+            <a href="#sec-literals">Templates</a>
+            <a href="#sec-iteration">Iteration</a>
+            <a href="#sec-promises">Promises</a>
+            <a href="#sec-collections">Collections</a>
+            <a href="#sec-symbols">Symbols</a>
+            <a href="#sec-proxy">Proxy</a>
+            <a href="#sec-arrays">Arrays</a>
+            <a href="#sec-math">Math</a>
+          </nav>
           <fieldset>
-            <legend>The six rows</legend>
+            <legend id="sec-six">The six rows</legend>
           <input type="radio" name="program" id="p-zero">
-          <label for="p-zero"><code>print(0)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
+          <label for="p-zero"><span class="feat">zero</span><code>print(0)</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
 
           <input type="radio" name="program" id="p-one">
-          <label for="p-one"><code>print(1)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+          <label for="p-one"><span class="feat">one</span><code>print(1)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
 
           <input type="radio" name="program" id="p-not-zero">
-          <label for="p-not-zero"><code>print(!0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
+          <label for="p-not-zero"><span class="feat">not</span><code>print(!0)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
 
           <input type="radio" name="program" id="p-not-one">
-          <label for="p-not-one"><code>print(!1)</code><span class="bits">0 0 1 0 0 1 0 0 0 0</span></label>
+          <label for="p-not-one"><span class="feat">not</span><code>print(!1)</code><span class="bits">0 0 1 0 0 1 0 0 0 0</span></label>
 
           <input type="radio" name="program" id="p-and-10">
-          <label for="p-and-10"><code>print(1 &amp;&amp; 0)</code><span class="bits">1 1 0 1 0 1 0 0 0 0</span></label>
+          <label for="p-and-10"><span class="feat">and</span><code>print(1 &amp;&amp; 0)</code><span class="bits">1 1 0 1 0 1 0 0 0 0</span></label>
 
           <input type="radio" name="program" id="p-and-11">
-          <label for="p-and-11"><code>print(1 &amp;&amp; 1)</code><span class="bits">1 1 0 1 1 1 0 0 0 0</span></label>
+          <label for="p-and-11"><span class="feat">and</span><code>print(1 &amp;&amp; 1)</code><span class="bits">1 1 0 1 1 1 0 0 0 0</span></label>
 
           <input type="radio" name="program" id="p-or-01">
-          <label for="p-or-01"><code>print(0 || 1)</code><span class="bits">0 0 0 0 0 0 1 0 0 0</span></label>
+          <label for="p-or-01"><span class="feat">or</span><code>print(0 || 1)</code><span class="bits">0 0 0 0 0 0 1 0 0 0</span></label>
 
           <input type="radio" name="program" id="p-or-11">
-          <label for="p-or-11"><code>print(1 || 1)</code><span class="bits">0 0 0 0 0 1 1 0 0 0</span></label>
+          <label for="p-or-11"><span class="feat">or</span><code>print(1 || 1)</code><span class="bits">0 0 0 0 0 1 1 0 0 0</span></label>
 
           <input type="radio" name="program" id="p-add-00">
-          <label for="p-add-00"><code>print(0 + 0)</code><span class="bits">1 0 0 1 0 0 1 0 0 0</span></label>
+          <label for="p-add-00"><span class="feat">add</span><code>print(0 + 0)</code><span class="bits">1 0 0 1 0 0 1 0 0 0</span></label>
 
           <input type="radio" name="program" id="p-add-10">
-          <label for="p-add-10"><code>print(1 + 0)</code><span class="bits">1 1 0 1 0 0 1 0 0 0</span></label>
+          <label for="p-add-10"><span class="feat">add</span><code>print(1 + 0)</code><span class="bits">1 1 0 1 0 0 1 0 0 0</span></label>
 
           <input type="radio" name="program" id="p-add-01">
-          <label for="p-add-01"><code>print(0 + 1)</code><span class="bits">1 0 1 1 0 0 1 0 0 0</span></label>
+          <label for="p-add-01"><span class="feat">add</span><code>print(0 + 1)</code><span class="bits">1 0 1 1 0 0 1 0 0 0</span></label>
 
           <input type="radio" name="program" id="p-add-11" checked>
-          <label for="p-add-11"><code>print(1 + 1)</code><span class="bits">1 1 1 1 0 0 1 0 0 0</span></label>
+          <label for="p-add-11"><span class="feat">add</span><code>print(1 + 1)</code><span class="bits">1 1 1 1 0 0 1 0 0 0</span></label>
           </fieldset>
 
           <fieldset>
-            <legend>Bindings</legend>
+            <legend id="sec-bindings">Bindings</legend>
             <input type="radio" name="program" id="es-let">
             <label for="es-let"><span class="feat">let</span><code>let a = 1; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-const">
@@ -233,7 +248,7 @@ print(a + b)</code></pre>
           </fieldset>
 
           <fieldset>
-            <legend>Functions</legend>
+            <legend id="sec-functions">Functions</legend>
             <input type="radio" name="program" id="es-arrow">
             <label for="es-arrow"><span class="feat">arrow</span><code>const add = (a, b) =&gt; a + b; print(add(1, 1))</code><span class="bits">1 1 1 1 0 0 1 0 0 0</span></label>
             <input type="radio" name="program" id="es-this">
@@ -263,7 +278,7 @@ print(a + b)</code></pre>
           </fieldset>
 
           <fieldset>
-            <legend>Destructuring</legend>
+            <legend id="sec-destructure">Destructuring</legend>
             <input type="radio" name="program" id="es-dest-arr">
             <label for="es-dest-arr"><span class="feat">array</span><code>const [a] = [1]; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-dest-obj">
@@ -277,7 +292,7 @@ print(a + b)</code></pre>
           </fieldset>
 
           <fieldset>
-            <legend>Objects and classes</legend>
+            <legend id="sec-objects">Objects and classes</legend>
             <input type="radio" name="program" id="es-short">
             <label for="es-short"><span class="feat">shorthand property</span><code>const a = 1; print({ a }.a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-method">
@@ -299,7 +314,7 @@ print(a + b)</code></pre>
           </fieldset>
 
           <fieldset>
-            <legend>Templates, literals, modules</legend>
+            <legend id="sec-literals">Templates, literals, modules</legend>
             <input type="radio" name="program" id="es-template">
             <label for="es-template"><span class="feat">template</span><code>print(Number(`${1}`))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-tag">
@@ -322,7 +337,7 @@ import { a } from "./m.js"; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 
           </fieldset>
 
           <fieldset>
-            <legend>Iteration</legend>
+            <legend id="sec-iteration">Iteration</legend>
             <input type="radio" name="program" id="es-for">
             <label for="es-for"><span class="feat">for...of</span><code>let s = 0; for (const n of [1]) s += n; print(s)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-chars">
@@ -334,7 +349,7 @@ import { a } from "./m.js"; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 
           </fieldset>
 
           <fieldset>
-            <legend>Promises</legend>
+            <legend id="sec-promises">Promises</legend>
             <input type="radio" name="program" id="es-promise">
             <label for="es-promise"><span class="feat">Promise.resolve</span><code>Promise.resolve(1).then(print)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-all">
@@ -346,7 +361,7 @@ import { a } from "./m.js"; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 
           </fieldset>
 
           <fieldset>
-            <legend>Collections</legend>
+            <legend id="sec-collections">Collections</legend>
             <input type="radio" name="program" id="es-map">
             <label for="es-map"><span class="feat">Map</span><code>print(new Map([["a", 1]]).get("a"))</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-set">
@@ -360,7 +375,7 @@ import { a } from "./m.js"; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 
           </fieldset>
 
           <fieldset>
-            <legend>Symbols</legend>
+            <legend id="sec-symbols">Symbols</legend>
             <input type="radio" name="program" id="es-symbol">
             <label for="es-symbol"><span class="feat">Symbol</span><code>const s = Symbol(); print({ [s]: 1 }[s])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-iter">
@@ -388,7 +403,7 @@ import { a } from "./m.js"; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 
           </fieldset>
 
           <fieldset>
-            <legend>Proxy and Reflect</legend>
+            <legend id="sec-proxy">Proxy and Reflect</legend>
             <input type="radio" name="program" id="es-proxy">
             <label for="es-proxy"><span class="feat">Proxy</span><code>print(new Proxy({ a: 1 }, { get: (t, k) =&gt; t[k] }).a)</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-apply">
@@ -420,7 +435,7 @@ import { a } from "./m.js"; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 
           </fieldset>
 
           <fieldset>
-            <legend>Arrays, strings, numbers, objects</legend>
+            <legend id="sec-arrays">Arrays, strings, numbers, objects</legend>
             <input type="radio" name="program" id="es-from">
             <label for="es-from"><span class="feat">Array.from</span><code>print(Array.from([1])[0])</code><span class="bits">0 0 0 0 0 1 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-of">
@@ -486,7 +501,7 @@ import { a } from "./m.js"; print(a)</code><span class="bits">0 0 0 0 0 1 0 0 0 
           </fieldset>
 
           <fieldset>
-            <legend>Math</legend>
+            <legend id="sec-math">Math</legend>
             <input type="radio" name="program" id="es-acosh">
             <label for="es-acosh"><span class="feat">Math.acosh</span><code>print(Math.acosh(1))</code><span class="bits">0 0 0 0 0 0 0 0 0 0</span></label>
             <input type="radio" name="program" id="es-asinh">

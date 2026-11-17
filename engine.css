@@ -431,7 +431,7 @@ dd {
 .stage {
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
   margin: 0 -1.4rem;
   padding: 0.45rem 1.4rem 0.55rem;
   background: var(--paper);
@@ -458,11 +458,35 @@ dd {
   display: contents;
 }
 
+.jumps {
+  position: sticky;
+  top: 221px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+  margin: 0.35rem 0 0.2rem;
+  background: var(--paper);
+}
+
+.jumps a {
+  color: var(--ink);
+  font-size: 0.78rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.jumps a:hover,
+.jumps a:focus-visible {
+  border-bottom-color: #b4532a;
+}
+
 .menu legend {
   display: block;
   margin: 1.25rem 0 0.3rem;
   padding: 0;
   font-size: 1.05rem;
+  scroll-margin-top: 22rem;
 }
 
 .menu fieldset:first-child legend {
@@ -513,8 +537,8 @@ dd {
 
 .menu input:checked + label {
   position: sticky;
-  /* The tape is 220.73px tall here. Tuck the row under it so the two meet. */
-  top: 214px;
+  /* Below the tape (221px) and the section links (46px). */
+  top: 267px;
   z-index: 1;
   background: var(--ink);
   color: var(--paper);
@@ -679,8 +703,16 @@ dd {
     overflow-wrap: break-word;
   }
 
+  .jumps {
+    top: 161px;
+  }
+
   .menu input:checked + label {
-    top: 154px;
+    top: 233px;
+  }
+
+  .menu legend {
+    scroll-margin-top: 24rem;
   }
 
   .menu input,

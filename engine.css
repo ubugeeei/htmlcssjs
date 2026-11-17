@@ -174,6 +174,26 @@ dd {
 @property --d7 { syntax: "<number>"; inherits: true; initial-value: 0; }
 @property --d8 { syntax: "<number>"; inherits: true; initial-value: 0; }
 @property --d9 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --e0 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --e1 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --e2 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --e3 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --e4 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --e5 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --e6 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --e7 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --e8 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --e9 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --f0 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --f1 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --f2 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --f3 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --f4 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --f5 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --f6 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --f7 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --f8 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --f9 { syntax: "<number>"; inherits: true; initial-value: 0; }
 @property --v { syntax: "<number>"; inherits: true; initial-value: 0; }
 
 /*
@@ -221,7 +241,6 @@ dd {
   Three steps. Column 2 and column 4 are one higher for 0, 1, and 2.
 */
 .pass-2 {
-  display: none;
   --c0: 0;
   --c1: var(--b1);
   --c2: 0;
@@ -265,7 +284,64 @@ dd {
   display: none;
 }
 
-.sheet:has(#then-one:checked) .pass-2 {
+.line.two,
+.printed.two {
+  display: none;
+}
+
+.sheet:has(#then-one:checked):not(:has(#then-or1:checked)) .line.two {
+  display: grid;
+}
+
+.sheet:has(#then-one:checked):not(:has(#then-or1:checked)) .printed.two {
+  display: block;
+}
+
+/*
+  Third instruction. One step of the same formula.
+  Column 2 and column 4 are the number. Column 5 is on.
+  Checked for 0, 1, 2, and 3: the ones bit comes out on.
+  0 | 1 = 1, 1 | 1 = 1, 2 | 1 = 3, 3 | 1 = 3.
+  When “then add 1” is on, this reads that incremented number.
+*/
+.pass-3 {
+  display: none;
+  --e0: 0;
+  --e1: var(--b1);
+  --e2: 0;
+  --e3: var(--b3);
+  --e4: 1;
+  --e5: 0;
+  --e6: 0;
+  --e7: 0;
+  --e8: 0;
+  --e9: 0;
+}
+
+.sheet:has(#then-one:checked) .pass-3 {
+  --e1: var(--d1);
+  --e3: var(--d3);
+}
+
+.from-f {
+  --f0: min(1, calc((1 - 0) * (var(--e0) + var(--e1)) + 0 * abs(var(--e0) - var(--e1))));
+  --f1: min(1, calc((1 - var(--e0)) * (var(--e1) + var(--e2)) + var(--e0) * abs(var(--e1) - var(--e2))));
+  --f2: min(1, calc((1 - var(--e1)) * (var(--e2) + var(--e3)) + var(--e1) * abs(var(--e2) - var(--e3))));
+  --f3: min(1, calc((1 - var(--e2)) * (var(--e3) + var(--e4)) + var(--e2) * abs(var(--e3) - var(--e4))));
+  --f4: min(1, calc((1 - var(--e3)) * (var(--e4) + var(--e5)) + var(--e3) * abs(var(--e4) - var(--e5))));
+  --f5: min(1, calc((1 - var(--e4)) * (var(--e5) + var(--e6)) + var(--e4) * abs(var(--e5) - var(--e6))));
+  --f6: min(1, calc((1 - var(--e5)) * (var(--e6) + var(--e7)) + var(--e5) * abs(var(--e6) - var(--e7))));
+  --f7: min(1, calc((1 - var(--e6)) * (var(--e7) + var(--e8)) + var(--e6) * abs(var(--e7) - var(--e8))));
+  --f8: min(1, calc((1 - var(--e7)) * (var(--e8) + var(--e9)) + var(--e7) * abs(var(--e8) - var(--e9))));
+  --f9: min(1, calc((1 - var(--e8)) * (var(--e9) + 0) + var(--e8) * abs(var(--e9) - 0)));
+}
+
+.sheet:has(#then-or1:checked) .line.one,
+.sheet:has(#then-or1:checked) .printed.one {
+  display: none;
+}
+
+.sheet:has(#then-or1:checked) .pass-3 {
   display: block;
 }
 
@@ -503,6 +579,11 @@ dd {
   margin-top: 1.2rem;
 }
 
+.universe {
+  /* The | 1 tape is two rows. This keeps the stage the same height as the four-row tape. */
+  min-height: 150px;
+}
+
 .stage {
   position: sticky;
   top: 0;
@@ -736,6 +817,28 @@ dd {
 .from-d > .line > .row > .cell:nth-child(9) { --v: var(--d8); }
 .from-d > .line > .row > .cell:nth-child(10) { --v: var(--d9); }
 
+.from-e > .line > .row > .cell:nth-child(1) { --v: var(--e0); }
+.from-e > .line > .row > .cell:nth-child(2) { --v: var(--e1); }
+.from-e > .line > .row > .cell:nth-child(3) { --v: var(--e2); }
+.from-e > .line > .row > .cell:nth-child(4) { --v: var(--e3); }
+.from-e > .line > .row > .cell:nth-child(5) { --v: var(--e4); }
+.from-e > .line > .row > .cell:nth-child(6) { --v: var(--e5); }
+.from-e > .line > .row > .cell:nth-child(7) { --v: var(--e6); }
+.from-e > .line > .row > .cell:nth-child(8) { --v: var(--e7); }
+.from-e > .line > .row > .cell:nth-child(9) { --v: var(--e8); }
+.from-e > .line > .row > .cell:nth-child(10) { --v: var(--e9); }
+
+.from-f > .line > .row > .cell:nth-child(1) { --v: var(--f0); }
+.from-f > .line > .row > .cell:nth-child(2) { --v: var(--f1); }
+.from-f > .line > .row > .cell:nth-child(3) { --v: var(--f2); }
+.from-f > .line > .row > .cell:nth-child(4) { --v: var(--f3); }
+.from-f > .line > .row > .cell:nth-child(5) { --v: var(--f4); }
+.from-f > .line > .row > .cell:nth-child(6) { --v: var(--f5); }
+.from-f > .line > .row > .cell:nth-child(7) { --v: var(--f6); }
+.from-f > .line > .row > .cell:nth-child(8) { --v: var(--f7); }
+.from-f > .line > .row > .cell:nth-child(9) { --v: var(--f8); }
+.from-f > .line > .row > .cell:nth-child(10) { --v: var(--f9); }
+
 .printed {
   margin: 0.8rem 0 0 calc(var(--gutter) + 0.7rem);
   font-size: 1.35rem;
@@ -768,9 +871,21 @@ dd {
 .last2 .n2 { opacity: calc(var(--d1) * (1 - var(--d3))); }
 .last2 .n3 { opacity: calc(var(--d1) * var(--d3)); }
 
+.last3 .n0 { opacity: calc((1 - var(--f1)) * (1 - var(--f3))); }
+.last3 .n1 { opacity: calc((1 - var(--f1)) * var(--f3)); }
+.last3 .n2 { opacity: calc(var(--f1) * (1 - var(--f3))); }
+.last3 .n3 { opacity: calc(var(--f1) * var(--f3)); }
+
+.thens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.2rem;
+  margin: 0.55rem 0 0;
+}
+
 .then {
   display: block;
-  margin: 0.55rem 0 0;
+  margin: 0;
   font-size: 0.85rem;
   cursor: pointer;
 }
@@ -788,6 +903,10 @@ dd {
 
   main {
     padding: 1.6rem 0.7rem 3rem;
+  }
+
+  .universe {
+    min-height: 123px;
   }
 
   .stage {

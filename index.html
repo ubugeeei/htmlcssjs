@@ -129,7 +129,10 @@ print(a + b)</code></pre>
         Column 2 and column 4 go in as the number, column 6 is on, and those same columns come out one higher.
         “Then | 1” loads the number on screen, turns column 5 on, and runs the formula once.
         The ones bit comes out on: 0 becomes 1, 1 stays 1, 2 becomes 3, and 3 stays 3.
-        With both boxes on, “| 1” reads the incremented number.
+        With “then add 1” also on, “| 1” reads the incremented number.
+        “Then | 2” turns column 3 on and runs the formula once.
+        The twos bit comes out on: 0 becomes 2, 1 becomes 3, 2 stays 2, and 3 stays 3.
+        It reads whichever later box is on.
       </p>
 
       <div class="sheet">
@@ -216,20 +219,42 @@ print(a + b)</code></pre>
                             Checked for 0, 1, 2, and 3.
                           -->
                           <div class="pass-3 from-e">
-                            <div class="line">
+                            <div class="line three">
                               <span class="when">| 1</span>
                               <div class="row">
                                 <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
                               </div>
                             </div>
                             <div class="from-f last3">
-                              <div class="line">
+                              <div class="line three">
                                 <span class="when">step 1</span>
                                 <div class="row">
                                   <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
                                 </div>
                               </div>
                               <p class="printed three">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
+                              <!--
+                                Fourth instruction. Column 2 and column 4 are
+                                the number. Column 3 is on. One step sets the
+                                twos bit. Checked for 0, 1, 2, and 3.
+                              -->
+                              <div class="pass-4 from-g">
+                                <div class="line">
+                                  <span class="when">| 2</span>
+                                  <div class="row">
+                                    <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                                  </div>
+                                </div>
+                                <div class="from-h last4">
+                                  <div class="line">
+                                    <span class="when">step 1</span>
+                                    <div class="row">
+                                      <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                                    </div>
+                                  </div>
+                                  <p class="printed four">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -248,6 +273,7 @@ print(a + b)</code></pre>
           <div class="thens">
             <label class="then" for="then-one"><input id="then-one" type="checkbox"> then add 1</label>
             <label class="then" for="then-or1"><input id="then-or1" type="checkbox"> then | 1</label>
+            <label class="then" for="then-or2"><input id="then-or2" type="checkbox"> then | 2</label>
           </div>
         </div>
 

@@ -194,6 +194,26 @@ dd {
 @property --f7 { syntax: "<number>"; inherits: true; initial-value: 0; }
 @property --f8 { syntax: "<number>"; inherits: true; initial-value: 0; }
 @property --f9 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --g0 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --g1 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --g2 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --g3 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --g4 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --g5 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --g6 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --g7 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --g8 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --g9 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --h0 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --h1 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --h2 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --h3 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --h4 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --h5 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --h6 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --h7 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --h8 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --h9 { syntax: "<number>"; inherits: true; initial-value: 0; }
 @property --v { syntax: "<number>"; inherits: true; initial-value: 0; }
 
 /*
@@ -289,11 +309,11 @@ dd {
   display: none;
 }
 
-.sheet:has(#then-one:checked):not(:has(#then-or1:checked)) .line.two {
+.sheet:has(#then-one:checked):not(:has(#then-or1:checked)):not(:has(#then-or2:checked)) .line.two {
   display: grid;
 }
 
-.sheet:has(#then-one:checked):not(:has(#then-or1:checked)) .printed.two {
+.sheet:has(#then-one:checked):not(:has(#then-or1:checked)):not(:has(#then-or2:checked)) .printed.two {
   display: block;
 }
 
@@ -305,7 +325,6 @@ dd {
   When “then add 1” is on, this reads that incremented number.
 */
 .pass-3 {
-  display: none;
   --e0: 0;
   --e1: var(--b1);
   --e2: 0;
@@ -341,7 +360,73 @@ dd {
   display: none;
 }
 
-.sheet:has(#then-or1:checked) .pass-3 {
+.line.three,
+.printed.three {
+  display: none;
+}
+
+.sheet:has(#then-or1:checked):not(:has(#then-or2:checked)) .line.three {
+  display: grid;
+}
+
+.sheet:has(#then-or1:checked):not(:has(#then-or2:checked)) .printed.three {
+  display: block;
+}
+
+/*
+  Fourth instruction. One step of the same formula.
+  Column 2 and column 4 are the number. Column 3 is on.
+  Checked for 0, 1, 2, and 3: the twos bit comes out on.
+  0 | 2 = 2, 1 | 2 = 3, 2 | 2 = 2, 3 | 2 = 3.
+  This reads the later box when “then add 1” or “then | 1” is on.
+*/
+.pass-4 {
+  display: none;
+  --g0: 0;
+  --g1: var(--b1);
+  --g2: 1;
+  --g3: var(--b3);
+  --g4: 0;
+  --g5: 0;
+  --g6: 0;
+  --g7: 0;
+  --g8: 0;
+  --g9: 0;
+}
+
+.sheet:has(#then-one:checked) .pass-4 {
+  --g1: var(--d1);
+  --g3: var(--d3);
+}
+
+.sheet:has(#then-or1:checked) .pass-4 {
+  --g1: var(--f1);
+  --g3: var(--f3);
+}
+
+.from-h {
+  --h0: min(1, calc((1 - 0) * (var(--g0) + var(--g1)) + 0 * abs(var(--g0) - var(--g1))));
+  --h1: min(1, calc((1 - var(--g0)) * (var(--g1) + var(--g2)) + var(--g0) * abs(var(--g1) - var(--g2))));
+  --h2: min(1, calc((1 - var(--g1)) * (var(--g2) + var(--g3)) + var(--g1) * abs(var(--g2) - var(--g3))));
+  --h3: min(1, calc((1 - var(--g2)) * (var(--g3) + var(--g4)) + var(--g2) * abs(var(--g3) - var(--g4))));
+  --h4: min(1, calc((1 - var(--g3)) * (var(--g4) + var(--g5)) + var(--g3) * abs(var(--g4) - var(--g5))));
+  --h5: min(1, calc((1 - var(--g4)) * (var(--g5) + var(--g6)) + var(--g4) * abs(var(--g5) - var(--g6))));
+  --h6: min(1, calc((1 - var(--g5)) * (var(--g6) + var(--g7)) + var(--g5) * abs(var(--g6) - var(--g7))));
+  --h7: min(1, calc((1 - var(--g6)) * (var(--g7) + var(--g8)) + var(--g6) * abs(var(--g7) - var(--g8))));
+  --h8: min(1, calc((1 - var(--g7)) * (var(--g8) + var(--g9)) + var(--g7) * abs(var(--g8) - var(--g9))));
+  --h9: min(1, calc((1 - var(--g8)) * (var(--g9) + 0) + var(--g8) * abs(var(--g9) - 0)));
+}
+
+.sheet:has(#then-or2:checked) .line.one,
+.sheet:has(#then-or2:checked) .printed.one,
+.sheet:has(#then-or2:checked) .line.two,
+.sheet:has(#then-or2:checked) .printed.two,
+.sheet:has(#then-or2:checked) .line.three,
+.sheet:has(#then-or2:checked) .printed.three {
+  display: none;
+}
+
+.sheet:has(#then-or2:checked) .pass-4 {
   display: block;
 }
 
@@ -839,6 +924,28 @@ dd {
 .from-f > .line > .row > .cell:nth-child(9) { --v: var(--f8); }
 .from-f > .line > .row > .cell:nth-child(10) { --v: var(--f9); }
 
+.from-g > .line > .row > .cell:nth-child(1) { --v: var(--g0); }
+.from-g > .line > .row > .cell:nth-child(2) { --v: var(--g1); }
+.from-g > .line > .row > .cell:nth-child(3) { --v: var(--g2); }
+.from-g > .line > .row > .cell:nth-child(4) { --v: var(--g3); }
+.from-g > .line > .row > .cell:nth-child(5) { --v: var(--g4); }
+.from-g > .line > .row > .cell:nth-child(6) { --v: var(--g5); }
+.from-g > .line > .row > .cell:nth-child(7) { --v: var(--g6); }
+.from-g > .line > .row > .cell:nth-child(8) { --v: var(--g7); }
+.from-g > .line > .row > .cell:nth-child(9) { --v: var(--g8); }
+.from-g > .line > .row > .cell:nth-child(10) { --v: var(--g9); }
+
+.from-h > .line > .row > .cell:nth-child(1) { --v: var(--h0); }
+.from-h > .line > .row > .cell:nth-child(2) { --v: var(--h1); }
+.from-h > .line > .row > .cell:nth-child(3) { --v: var(--h2); }
+.from-h > .line > .row > .cell:nth-child(4) { --v: var(--h3); }
+.from-h > .line > .row > .cell:nth-child(5) { --v: var(--h4); }
+.from-h > .line > .row > .cell:nth-child(6) { --v: var(--h5); }
+.from-h > .line > .row > .cell:nth-child(7) { --v: var(--h6); }
+.from-h > .line > .row > .cell:nth-child(8) { --v: var(--h7); }
+.from-h > .line > .row > .cell:nth-child(9) { --v: var(--h8); }
+.from-h > .line > .row > .cell:nth-child(10) { --v: var(--h9); }
+
 .printed {
   margin: 0.8rem 0 0 calc(var(--gutter) + 0.7rem);
   font-size: 1.35rem;
@@ -875,6 +982,11 @@ dd {
 .last3 .n1 { opacity: calc((1 - var(--f1)) * var(--f3)); }
 .last3 .n2 { opacity: calc(var(--f1) * (1 - var(--f3))); }
 .last3 .n3 { opacity: calc(var(--f1) * var(--f3)); }
+
+.last4 .n0 { opacity: calc((1 - var(--h1)) * (1 - var(--h3))); }
+.last4 .n1 { opacity: calc((1 - var(--h1)) * var(--h3)); }
+.last4 .n2 { opacity: calc(var(--h1) * (1 - var(--h3))); }
+.last4 .n3 { opacity: calc(var(--h1) * var(--h3)); }
 
 .thens {
   display: flex;

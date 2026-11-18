@@ -115,6 +115,37 @@ print(a + b)</code></pre>
           <code>a</code> is column 2. <code>b</code> is column 3.
           On the third step, column 2 holds the carry and column 4 holds the sum bit.
         </dd>
+        <dt>then add 1</dt>
+        <dd>
+          The number is already in column 2 and column 4. Column 6 is on.
+          <code class="pattern">0 t 0 o 0 1 0 0 0 0</code>
+          Three steps. 0, 1, and 2 come out one higher.
+        </dd>
+        <dt>then | 1</dt>
+        <dd>
+          Column 5 is on. <code class="pattern">0 t 0 o 1 0 0 0 0 0</code>
+          One step. The ones bit comes out on.
+          0 becomes 1, 1 stays 1, 2 becomes 3, and 3 stays 3.
+        </dd>
+        <dt>then | 2</dt>
+        <dd>
+          Column 3 is on. <code class="pattern">0 t 1 o 0 0 0 0 0 0</code>
+          One step. The twos bit comes out on.
+          0 becomes 2, 1 becomes 3, 2 stays 2, and 3 stays 3.
+        </dd>
+        <dt>then ^ 2</dt>
+        <dd>
+          Column 1 and column 3 are on. <code class="pattern">1 t 1 o 0 0 0 0 0 0</code>
+          One step. The twos bit flips.
+          0 becomes 2, 1 becomes 3, 2 becomes 0, and 3 becomes 1.
+        </dd>
+        <dt>then ^ 3</dt>
+        <dd>
+          Columns 1, 3, and 5 are on. <code class="pattern">1 t 1 o 1 0 0 0 0 0</code>
+          One step. Both bits flip.
+          0 becomes 3, 1 becomes 2, 2 becomes 1, and 3 becomes 0.
+          After ^ 2, only the ones bit flips.
+        </dd>
       </dl>
     </section>
 
@@ -130,16 +161,8 @@ print(a + b)</code></pre>
         The number 2 uses the <code>1 + 1</code> row.
         <code>true</code> prints as 1 and <code>false</code> prints as 0.
         A promise is read after it settles.
-        “Then add 1” loads that number into a second program and runs the formula three more times.
-        Column 2 and column 4 go in as the number, column 6 is on, and those same columns come out one higher.
-        “Then | 1” loads the number on screen, turns column 5 on, and runs the formula once.
-        The ones bit comes out on: 0 becomes 1, 1 stays 1, 2 becomes 3, and 3 stays 3.
-        With “then add 1” also on, “| 1” reads the incremented number.
-        “Then | 2” turns column 3 on and runs the formula once.
-        The twos bit comes out on: 0 becomes 2, 1 becomes 3, 2 stays 2, and 3 stays 3.
-        “Then ^ 2” turns column 1 and column 3 on and runs the formula once.
-        The twos bit flips: 0 becomes 2, 1 becomes 3, 2 becomes 0, and 3 becomes 1.
-        A later box reads whichever earlier box is on.
+        The boxes under the tape run the instruction rows above.
+        A later box reads whichever earlier box is on, and the tape shows that last box.
       </p>
 
       <div class="sheet">
@@ -267,20 +290,43 @@ print(a + b)</code></pre>
                                     Checked for 0, 1, 2, and 3.
                                   -->
                                   <div class="pass-5 from-i">
-                                    <div class="line">
+                                    <div class="line five">
                                       <span class="when">^ 2</span>
                                       <div class="row">
                                         <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
                                       </div>
                                     </div>
                                     <div class="from-j last5">
-                                      <div class="line">
+                                      <div class="line five">
                                         <span class="when">step 1</span>
                                         <div class="row">
                                           <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
                                         </div>
                                       </div>
                                       <p class="printed five">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
+                                      <!--
+                                        Sixth instruction. Columns 1, 3, and 5
+                                        are on. One step flips both bits.
+                                        Checked for 0, 1, 2, and 3.
+                                        After ^ 2, only the ones bit flips.
+                                      -->
+                                      <div class="pass-6 from-k">
+                                        <div class="line">
+                                          <span class="when">^ 3</span>
+                                          <div class="row">
+                                            <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                                          </div>
+                                        </div>
+                                        <div class="from-l last6">
+                                          <div class="line">
+                                            <span class="when">step 1</span>
+                                            <div class="row">
+                                              <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                                            </div>
+                                          </div>
+                                          <p class="printed six">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -305,6 +351,7 @@ print(a + b)</code></pre>
             <label class="then" for="then-or1"><input id="then-or1" type="checkbox"> then | 1</label>
             <label class="then" for="then-or2"><input id="then-or2" type="checkbox"> then | 2</label>
             <label class="then" for="then-xor2"><input id="then-xor2" type="checkbox"> then ^ 2</label>
+            <label class="then" for="then-xor3"><input id="then-xor3" type="checkbox"> then ^ 3</label>
           </div>
         </div>
 

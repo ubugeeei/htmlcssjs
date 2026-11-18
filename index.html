@@ -72,6 +72,11 @@ print(a + b)</code></pre>
         <li>Left 0, center 0, right 1. <code>min(1, (1 − 0) × (0 + 1) + 0 × |0 − 1|) = 1</code>.</li>
       </ul>
       <p>Cells past the ends of the row are empty, so the missing neighbor is <code>0</code>.</p>
+      <p>
+        This formula is a Turing-complete computer.
+        A JavaScript interpreter is a starting row of the formula, then as many following rows as that program needs.
+        The rows on this page are the short ones: ten cells, and the instructions under the tape.
+      </p>
     </section>
 
     <section>
@@ -132,7 +137,9 @@ print(a + b)</code></pre>
         With “then add 1” also on, “| 1” reads the incremented number.
         “Then | 2” turns column 3 on and runs the formula once.
         The twos bit comes out on: 0 becomes 2, 1 becomes 3, 2 stays 2, and 3 stays 3.
-        It reads whichever later box is on.
+        “Then ^ 2” turns column 1 and column 3 on and runs the formula once.
+        The twos bit flips: 0 becomes 2, 1 becomes 3, 2 becomes 0, and 3 becomes 1.
+        A later box reads whichever earlier box is on.
       </p>
 
       <div class="sheet">
@@ -239,20 +246,43 @@ print(a + b)</code></pre>
                                 twos bit. Checked for 0, 1, 2, and 3.
                               -->
                               <div class="pass-4 from-g">
-                                <div class="line">
+                                <div class="line four">
                                   <span class="when">| 2</span>
                                   <div class="row">
                                     <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
                                   </div>
                                 </div>
                                 <div class="from-h last4">
-                                  <div class="line">
+                                  <div class="line four">
                                     <span class="when">step 1</span>
                                     <div class="row">
                                       <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
                                     </div>
                                   </div>
                                   <p class="printed four">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
+                                  <!--
+                                    Fifth instruction. Column 2 and column 4 are
+                                    the number. Column 1 and column 3 are on.
+                                    One step flips the twos bit.
+                                    Checked for 0, 1, 2, and 3.
+                                  -->
+                                  <div class="pass-5 from-i">
+                                    <div class="line">
+                                      <span class="when">^ 2</span>
+                                      <div class="row">
+                                        <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                                      </div>
+                                    </div>
+                                    <div class="from-j last5">
+                                      <div class="line">
+                                        <span class="when">step 1</span>
+                                        <div class="row">
+                                          <span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell place"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                                        </div>
+                                      </div>
+                                      <p class="printed five">prints <span class="nums" aria-hidden="true"><span class="n n0">0</span><span class="n n1">1</span><span class="n n2">2</span><span class="n n3">3</span></span></p>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -274,6 +304,7 @@ print(a + b)</code></pre>
             <label class="then" for="then-one"><input id="then-one" type="checkbox"> then add 1</label>
             <label class="then" for="then-or1"><input id="then-or1" type="checkbox"> then | 1</label>
             <label class="then" for="then-or2"><input id="then-or2" type="checkbox"> then | 2</label>
+            <label class="then" for="then-xor2"><input id="then-xor2" type="checkbox"> then ^ 2</label>
           </div>
         </div>
 
